@@ -10,15 +10,18 @@
     <h1 class="mx-auto py-14 text-5xl font-bold">Apartments</h1>
     <section class="grid grid-cols-3 gap-12">
       <div
-        class="solid rounded-lg border-2 border-violet-200 p-2 shadow-md hover:shadow-xl"
+        class="solid rounded-lg border-2 border-violet-200 p-3 shadow-md hover:shadow-xl"
         v-for="apartment in apartments"
         :key="apartment.id"
       >
-        <img :src="apartment.imageUrl" :width="400" />
-        <h3 class="mt-2">
-          {{ apartment.address }} - Floor {{ apartment.floor }}, Door
-          {{ apartment.doorNumber }}
-        </h3>
+        <NuxtLink :to="`/apartments/${apartment.id}`">
+          <img :src="apartment.imageUrl" :width="400" />
+          <h3 class="mt-2 text-xl">
+            {{ apartment.address }} #{{ apartment.floor }}-{{
+              apartment.doorNumber
+            }}
+          </h3>
+        </NuxtLink>
       </div>
     </section>
   </div>
@@ -28,6 +31,11 @@
 import { getApartments } from "@/mock-db/api";
 
 const apartments = await getApartments();
+const colourTag = (status) => {
+  if (status === "Available") return "#12b488";
+  if (status === "Pending") return "#fdcb6e";
+  if (status === "Occupied") return "#d63031";
+};
 </script>
 
 <style scoped></style>
