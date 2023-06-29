@@ -2,5 +2,5 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ["@nuxtjs/tailwindcss"],
-  routeRules: { "/": { redirect: "/apartments" } },
+  // routeRules: { "/": { redirect: "/apartments" } }, => can use in pageMeta at home page
 });

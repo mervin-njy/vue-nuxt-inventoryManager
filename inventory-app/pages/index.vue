@@ -23,6 +23,10 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+definePageMeta({
+  redirect: "/apartments",
+});
+</script>
 
 <style scoped></style>

@@ -10,7 +10,7 @@
 
 <template>
   <div>
-    <h1>Aparments</h1>
+    <h1 class="font-bold text-4xl">Aparments</h1>
     <p>
       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat amet
       aspernatur laborum omnis sint officiis minima quod necessitatibus, officia

@@ -19,6 +19,9 @@
 
 <script setup>
 const { id } = useRoute().params;
+definePageMeta({
+  layout: "apartments",
+});
 </script>
 
-<style lang="scss" scoped></style>
+<style scoped></style>
