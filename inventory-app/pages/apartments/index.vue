@@ -2,7 +2,7 @@
 
 <!-- TODO:  -->
 
-<!-- 1. fetch list of apartments from server / mock-db via simluated API w/ asyncData method -->
+<!-- 1. fetch list of apartments from server / mock-db via simluated API -->
 
 <!-- 2. Display apartment details {Address, Floor, Door Number} -->
 
@@ -10,15 +10,23 @@
 
 <template>
   <div>
-    <h1 class="font-bold text-4xl">Aparments</h1>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaerat amet
-      aspernatur laborum omnis sint officiis minima quod necessitatibus, officia
-      repudiandae!
-    </p>
+    <h1 class="font-bold text-4xl">Apartments</h1>
+    <ul>
+      <div v-for="apartment in apartments" :key="apartment.id">
+        <img :src="apartment.imageUrl" :width="500" />
+        <h3>
+          {{ apartment.address }} - Floor {{ apartment.floor }}, Door
+          {{ apartment.doorNumber }}
+        </h3>
+      </div>
+    </ul>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { getApartments } from "@/mock-db/api";
+
+const apartments = await getApartments();
+</script>
 
 <style scoped></style>
