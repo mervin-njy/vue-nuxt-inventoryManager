@@ -18,7 +18,7 @@
       <div class="w-11/12 mx-auto flex flex-wrap justify-center">
         <!-- LEFT: Apartment selected -->
         <div class="w-5/12 py-2 pr-8 border-r-2 border-[#dfe6e9] mr-8">
-          <img :src="imageUrl" :alt="address" />
+          <img :src="imageUrl" :width="1000" :alt="address" />
 
           <h3 class="my-3 font-bold tracking-wider text-2xl truncate">
             {{ address }} #{{ floor }}-{{ doorNumber }}

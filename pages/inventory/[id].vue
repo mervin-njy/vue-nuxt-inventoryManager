@@ -221,7 +221,7 @@ const handlePlus = (index) => {
 };
 
 const handleAddRow = () => {
-  if (inventory.value.length <= 20) {
+  if (inventory.value.length < 20) {
     inventory.value.push({ item: itemOptions[0], quantity: 1 });
   } else {
     alert("Maximum of 20 items please!");
