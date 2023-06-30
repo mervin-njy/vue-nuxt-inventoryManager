@@ -1,3 +1,4 @@
+<!-- /apartments/_id -->
 <!-- This is the apartment + inventory Preview page -->
 <template>
   <div class="flex justify-center h-screen items-center">
@@ -31,9 +32,9 @@
             <p class="tracking-wider text-xl truncate">
               No items in the inventory.
             </p>
-            <button class="btn btn-primary" @click="handleUpdateInventory">
+            <NuxtLink :to="`/inventory/${id}`" class="btn btn-primary">
               Add Items
-            </button>
+            </NuxtLink>
           </div>
 
           <div v-else>
@@ -48,8 +49,7 @@
 
 <script setup>
 const { id } = useRoute().params;
-import { getApartments } from "@/mock-db/api";
-import { getInventory } from "@/mock-db/api";
+import { getApartments, getInventory } from "@/mock-db/api";
 
 const apartments = await getApartments();
 const { address, floor, doorNumber, imageUrl, area, status } =
@@ -62,10 +62,6 @@ console.log(
   inventory,
   !inventory
 );
-
-// definePageMeta({
-//   layout: "apartments",
-// });
 </script>
 
 <style scoped></style>

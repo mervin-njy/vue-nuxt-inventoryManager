@@ -17,12 +17,15 @@
     </table>
 
     <div class="flex justify-end mt-6">
-      <button class="btn btn-primary">Edit Items</button>
+      <NuxtLink :to="`/inventory/${id}`" class="btn btn-primary"
+        >Edit Items</NuxtLink
+      >
     </div>
   </div>
 </template>
 
 <script setup>
+const { id } = useRoute().params;
 const { items } = defineProps(["items"]);
 </script>
 

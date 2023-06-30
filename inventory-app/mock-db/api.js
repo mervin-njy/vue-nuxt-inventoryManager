@@ -162,12 +162,12 @@ function delay(ms) {
 
 // Mock API functions ----------------------------------------------------------------
 async function getApartments() {
-  await delay(500); // Simulate API delay
+  await delay(200); // Simulate API delay
   return mockApartments;
 }
 
 async function getInventory(apartmentId) {
-  await delay(500); // Simulate API delay
+  await delay(200); // Simulate API delay
 
   console.log(mockInventory);
   for (let i = 0; i < mockInventory.length; i++) {
@@ -180,27 +180,40 @@ async function getInventory(apartmentId) {
   }
 }
 
+async function getInventoryOptions() {
+  await delay(200);
+  return inventoryOptions;
+}
+
 async function createInventory(apartmentId, items) {
-  await delay(500); // Simulate API delay
-  // code to create
-  mockInventory.push({ apartmentId, items });
-  return mockInventory[i].items;
+  await delay(200); // Simulate API delay
+  // check for item length
+  if (items.length <= 20) {
+    mockInventory.push({ apartmentId, items });
+    return mockInventory[i].items;
+  } else {
+    return "Inventory list is too long";
+  }
 }
 
 async function updateInventory(apartmentId, newItems) {
-  await delay(500); // Simulate API delay
+  await delay(200); // Simulate API delay
   // code to update
   for (let i = 0; i < mockInventory.length; i++) {
-    if (mockInventory[i].apartmentId === apartmentId) {
-      console.log("INVENTORY EDIT");
-      mockInventory[i].items = newItems;
-      return mockInventory[i].items;
+    if (newItems.length <= 20) {
+      if (mockInventory[i].apartmentId === apartmentId) {
+        console.log("INVENTORY EDIT");
+        mockInventory[i].items = newItems;
+        return mockInventory[i].items;
+      }
+    } else {
+      return "Inventory list is too long";
     }
   }
 }
 
 async function deleteInventory(apartmentId) {
-  await delay(500); // Simulate API delay
+  await delay(200); // Simulate API delay
   // code to delete
   for (let i = 0; i < mockInventory.length; i++) {
     if (mockInventory[i].apartmentId === apartmentId) {
@@ -214,6 +227,7 @@ async function deleteInventory(apartmentId) {
 
 // Export API functions --------------------------------------------------------------
 export {
+  getInventoryOptions,
   getApartments,
   getInventory,
   createInventory,

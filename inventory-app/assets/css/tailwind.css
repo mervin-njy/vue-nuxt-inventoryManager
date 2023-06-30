@@ -5,6 +5,7 @@
 body {
   @apply bg-slate-50;
   @apply text-[#2d3436];
+  @apply selection:bg-[#12b488];
 }
 
 @layer components {
