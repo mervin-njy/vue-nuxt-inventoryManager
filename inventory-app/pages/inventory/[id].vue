@@ -27,6 +27,14 @@
         <h3 class="font-bold tracking-wider text-2xl pr-2">Quantity</h3>
       </header>
 
+      <!-- ~3. if no inventory items -->
+      <p
+        v-if="inventory.length === 0"
+        class="flex w-full items-center pl-3 text-lg italic tracking-wider font-medium"
+      >
+        There are no items in the list.
+      </p>
+
       <!-- 3. table of inventory list -->
       <table class="w-full">
         <!-- for each row of items from existing inventory -->
@@ -141,7 +149,6 @@ import {
   getApartments,
   getInventory,
   getInventoryOptions,
-  createInventory,
   updateInventory,
   deleteInventory,
 } from "@/mock-db/api";
@@ -157,16 +164,44 @@ const previewMode = ref(false);
 const approvedMode = ref(false);
 
 // get inventory list for particular apartment[id] onMount => to be changed in this page
-const inventoryInitial = ref([]);
+const inventoryChanges = ref([]); // boolean
+const inventoryInitial = (await getInventory(parseInt(id))) || []; // initial array to compare with for changes
 const inventory = ref([]);
 onMounted(async () => {
   // empty array if initial inventory doesn't exist => else inventory.value = undefined
   inventory.value = (await getInventory(parseInt(id))) || [];
-  // initial array to compare with for changes
-  inventoryInitial.value = (await getInventory(parseInt(id))) || [];
 });
 
 const itemOptions = await getInventoryOptions();
+
+// functions ---------------------------------------------------------------------------------------
+const getInitialValues = (initialArr) => {
+  // trigger this every time "Approve" gets clicked => restructure arr into kv-pair
+  const kvPair = {};
+  for (let i = 0; i < initialArr.length; i++) {
+    kvPair[initialArr[i].item] = initialArr[i].quantity;
+  }
+  return kvPair;
+};
+
+// needs refactoring...
+const compareChanges = (arr, initialVals) => {
+  // returns true/false in the same format as array => render display changes to text
+  const boolChanges = [];
+  console.log("compareChanges - new inventory", arr);
+  console.log("initial values", initialVals);
+  for (let i = 0; i < arr.length; i++) {
+    const boolRow = {};
+    boolRow["item"] = Object.keys(initialVals).includes(arr[i].item);
+    if (boolRow["item"]) {
+      boolRow["quantity"] = arr[i].quantity === initialVals[arr[i].item];
+    }
+
+    boolChanges.push(boolRow);
+  }
+
+  return boolChanges;
+};
 
 // event handlers ----------------------------------------------------------------------------------
 const handleDropdownChange = (selectedOption, index) => {
@@ -195,17 +230,25 @@ const handleAddRow = () => {
 
 const handlePreview = () => {
   // toggles previewMode to disable select/dropdown & +/- qty
-  console.log(previewMode.value);
+  console.log("handlePreview", previewMode.value);
   console.log(inventory.value);
   previewMode.value = !previewMode.value;
 };
 
-const handleDelete = () => {};
-
-const handleApprove = () => {
-  updateInventory(id, inventory.value);
+async function handleDelete() {
+  console.log("handleDelete", id);
+  await deleteInventory(parseInt(id));
+  inventory.value = [];
   approvedMode.value = !approvedMode.value;
-};
+}
+
+async function handleApprove() {
+  console.log("handleApprove", id, toRaw(inventory.value));
+  await updateInventory(parseInt(id), toRaw(inventory.value));
+  approvedMode.value = !approvedMode.value;
+  const initialVals = getInitialValues(inventoryInitial);
+  inventoryChanges.value = compareChanges(inventory.value, initialVals);
+}
 </script>
 
 <style scoped></style>

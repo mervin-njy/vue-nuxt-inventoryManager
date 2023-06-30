@@ -169,15 +169,27 @@ async function getApartments() {
 async function getInventory(apartmentId) {
   await delay(200); // Simulate API delay
 
-  console.log(mockInventory);
+  console.log(
+    "getInventory",
+    mockInventory,
+    mockInventory.length,
+    typeof mockInventory
+  );
+
   for (let i = 0; i < mockInventory.length; i++) {
+    console.log(
+      "getInventory",
+      mockInventory[i].apartmentId,
+      apartmentId,
+      mockInventory[i].apartmentId === apartmentId
+    );
+
     if (mockInventory[i].apartmentId === apartmentId) {
       console.log("INVENTORY EXISTS");
       return mockInventory[i].items;
-    } else {
-      return undefined;
     }
   }
+  return undefined;
 }
 
 async function getInventoryOptions() {
@@ -187,27 +199,21 @@ async function getInventoryOptions() {
 
 async function createInventory(apartmentId, items) {
   await delay(200); // Simulate API delay
-  // check for item length
-  if (items.length <= 20) {
-    mockInventory.push({ apartmentId, items });
-    return mockInventory[i].items;
-  } else {
-    return "Inventory list is too long";
-  }
+  // shall use updateInventory
 }
 
 async function updateInventory(apartmentId, newItems) {
   await delay(200); // Simulate API delay
-  // code to update
+  console.log("updateInventory", apartmentId, newItems);
+
   for (let i = 0; i < mockInventory.length; i++) {
-    if (newItems.length <= 20) {
-      if (mockInventory[i].apartmentId === apartmentId) {
-        console.log("INVENTORY EDIT");
-        mockInventory[i].items = newItems;
-        return mockInventory[i].items;
-      }
+    console.log(mockInventory[i].apartmentId === apartmentId);
+    if (mockInventory[i].apartmentId === apartmentId) {
+      mockInventory[i]["items"] = newItems;
+      console.log("Initially filled Inventory", mockInventory);
     } else {
-      return "Inventory list is too long";
+      mockInventory.push({ apartmentId: apartmentId, items: newItems });
+      console.log("Initially empty Inventory", mockInventory);
     }
   }
 }
@@ -218,8 +224,8 @@ async function deleteInventory(apartmentId) {
   for (let i = 0; i < mockInventory.length; i++) {
     if (mockInventory[i].apartmentId === apartmentId) {
       console.log("INVENTORY DELETE");
-      const removed = mockInventory.splice(i, 1);
-      return mockInventory, removed;
+      mockInventory.splice(i, 1);
+      return mockInventory; // Return mockInventory after removing the item
     }
   }
   return mockInventory;
