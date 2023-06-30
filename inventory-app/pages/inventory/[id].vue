@@ -39,7 +39,7 @@
             class="select w-full max-w-xs ml-2 pl-4 rounded-md hover:bg-[#6c5ce7] hover:text-white"
           >
             <option disabled selected>
-              {{ item.item }}
+              {{ inventory[index].item }}
             </option>
             <option v-for="o of itemOptions" :key="o">
               {{ o }}
@@ -68,7 +68,29 @@
       </table>
 
       <!-- 4. Options to add row, confirm, or delete list -->
-      <section class="flex justify-around mt-auto"></section>
+      <section class="flex justify-between mt-6">
+        <button
+          class="tracking-wider text-md btn w-2/12 h-1/5 rounded-lg"
+          @click="handleAddRow"
+        >
+          Add Row
+        </button>
+
+        <div class="flex justify-end space-x-4 w-9/12">
+          <button
+            class="tracking-wider text-md btn w-2/12 rounded-lg bg-[#6c5ce7] hover:bg-[#a29bfe] hover:text-white"
+            @click="handlePreview"
+          >
+            Preview
+          </button>
+          <button
+            class="tracking-wider text-md btn w-2/12 rounded-lg bg-[#d63031] hover:bg-[#ff7675] hover:text-white"
+            @click="handleDelete"
+          >
+            Delete
+          </button>
+        </div>
+      </section>
     </div>
   </div>
 </template>
@@ -98,15 +120,21 @@ onMounted(async () => {
 
 const itemOptions = await getInventoryOptions();
 
-// event handlers for + & - quantity
+// event handlers
 const handleMinus = (index) => {
   if (inventory.value[index].quantity > 0) {
     inventory.value[index].quantity--;
+  } else {
+    inventory.value.splice(index, 1);
   }
 };
 
 const handlePlus = (index) => {
   inventory.value[index].quantity++;
+};
+
+const handleAddRow = () => {
+  inventory.value.push({ item: itemOptions[0], quantity: 1 });
 };
 </script>
 
