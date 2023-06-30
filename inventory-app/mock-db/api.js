@@ -180,21 +180,35 @@ async function getInventory(apartmentId) {
   }
 }
 
-async function createInventory(apartmentId) {
+async function createInventory(apartmentId, items) {
   await delay(500); // Simulate API delay
   // code to create
-  return mockInventory;
+  mockInventory.push({ apartmentId, items });
+  return mockInventory[i].items;
 }
 
-async function updateInventory(apartmentId) {
+async function updateInventory(apartmentId, newItems) {
   await delay(500); // Simulate API delay
   // code to update
-  return mockInventory;
+  for (let i = 0; i < mockInventory.length; i++) {
+    if (mockInventory[i].apartmentId === apartmentId) {
+      console.log("INVENTORY EDIT");
+      mockInventory[i].items = newItems;
+      return mockInventory[i].items;
+    }
+  }
 }
 
 async function deleteInventory(apartmentId) {
   await delay(500); // Simulate API delay
   // code to delete
+  for (let i = 0; i < mockInventory.length; i++) {
+    if (mockInventory[i].apartmentId === apartmentId) {
+      console.log("INVENTORY DELETE");
+      const removed = mockInventory.splice(i, 1);
+      return mockInventory, removed;
+    }
+  }
   return mockInventory;
 }
 

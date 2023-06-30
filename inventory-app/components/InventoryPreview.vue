@@ -9,10 +9,10 @@
     <table class="w-full">
       <tr
         v-for="i in items"
-        class="flex justify-between py-1 even:bg-[#dfe6e9] rounded-md"
+        class="flex justify-between py-1 even:bg-[#dfe6e9] hover:bg-[#636e72] hover:text-[#55efc4] rounded-md"
       >
-        <p class="tracking-wider text-lg pl-2 truncate">{{ i.item }}</p>
-        <p class="tracking-wider text-lg pr-2">{{ i.quantity }}</p>
+        <p class="tracking-wider text-lg pl-3 truncate">{{ i.item }}</p>
+        <p class="tracking-wider text-lg pr-4">{{ i.quantity }}</p>
       </tr>
     </table>
 
