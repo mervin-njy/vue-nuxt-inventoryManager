@@ -1,15 +1,13 @@
 <!-- default layout with nav links for individual apartments -->
 <template>
-  <div>
+  <div class="mx-auto w-11/12 h-screen">
     <header>
-      <nav>
-        <!-- default goes back to list of apartments -->
-        <!-- TODO: replace BACK with icon -->
-        <NuxtLink to="/apartments">BACK</NuxtLink>
-      </nav>
+      <!-- default goes back to list of apartments -->
+      <!-- TODO: replace BACK with icon -->
+      <NuxtLink to="/apartments">BACK</NuxtLink>
     </header>
 
-    <!-- output page contents - woah nice shows the number of references here!!! -->
+    <!-- output page contents -->
     <div><slot /></div>
 
     <footer>

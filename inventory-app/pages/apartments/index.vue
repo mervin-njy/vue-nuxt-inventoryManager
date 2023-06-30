@@ -9,19 +9,9 @@
   <div class="mx-auto w-8/12 pb-60 pt-20">
     <h1 class="mx-auto py-14 text-5xl font-bold">Apartments</h1>
     <section class="grid grid-cols-3 gap-12">
-      <div
-        class="solid rounded-lg border-2 border-violet-200 p-3 shadow-md hover:shadow-xl"
-        v-for="apartment in apartments"
-        :key="apartment.id"
-      >
-        <NuxtLink :to="`/apartments/${apartment.id}`">
-          <img :src="apartment.imageUrl" :width="400" />
-          <h3 class="mt-2 text-xl">
-            {{ apartment.address }} #{{ apartment.floor }}-{{
-              apartment.doorNumber
-            }}
-          </h3>
-        </NuxtLink>
+      <!-- class="solid rounded-lg border-2 border-violet-200 p-3 shadow-md hover:shadow-xl" -->
+      <div v-for="a in apartments" :key="a.id">
+        <ApartmentCard :apartment="a" />
       </div>
     </section>
   </div>
