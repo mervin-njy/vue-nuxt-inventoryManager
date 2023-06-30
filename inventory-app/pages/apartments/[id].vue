@@ -1,12 +1,14 @@
 <!-- /apartments/_id -->
 <!-- This is the apartment + inventory Preview page -->
 <template>
-  <div class="flex justify-center h-screen items-center">
+  <div class="flex justify-center items-center py-40">
     <div>
       <!-- TOP: title + back redirectory -->
       <header class="w-10/12 mx-auto px-8 mb-8 flex items-center">
         <!-- redirect back to list of apartments -->
-        <NuxtLink to="/apartments" class="text-xl btn pt-0 pb-1 rounded-3xl"
+        <NuxtLink
+          to="/apartments"
+          class="text-3xl btn text-center w-20 pt-0 pb-1 rounded-3xl"
           >←</NuxtLink
         >
         <h1 class="ml-8 text-3xl font-bold tracking-wider">Inventory List</h1>

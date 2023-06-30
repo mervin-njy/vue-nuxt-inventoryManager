@@ -11,7 +11,12 @@
         </h3>
 
         <div class="card-actions flex justify-end">
-          <NuxtLink :to="`/apartments/${apartment.id}`" class="btn btn-primary"
+          <NuxtLink
+            :to="{
+              path: `/apartments/${apartment.id}`,
+              query: { preview: false },
+            }"
+            class="btn btn-primary"
             >View Inventory</NuxtLink
           >
         </div>

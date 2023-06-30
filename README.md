@@ -6,4 +6,5 @@ Simple CRUD app where user can view a list of apartments, each with inventory ma
 
 npm install --save-dev @nuxtjs/tailwindcss
 npm i daisyui
-npm i -D prettier-plugin-tailwindcss
+npm i -D prettier-plugin-tailwindcss => removed due to long save time
+npm install @nuxtjs/composition-api
