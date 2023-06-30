@@ -40,20 +40,21 @@
             <p class="font-medium text-lg pr-3">{{ index + 1 }}.</p>
             <!-- Toggle previewMode off-->
             <select
-              v-if="!previewMode"
               class="select w-full max-w-xs pl-2 rounded-md hover:bg-[#6c5ce7] hover:text-white"
+              v-if="!approvedMode && !previewMode"
+              @change="handleDropdownChange($event.target.value, index)"
             >
               <option disabled selected>
                 {{ inventory[index].item }}
               </option>
-              <option v-for="o of itemOptions" :key="o">
+              <option v-for="o of itemOptions" :value="o" :key="o">
                 {{ o }}
               </option>
             </select>
 
-            <!-- Toggle previewMode on -->
+            <!-- Toggle previewMode on OR approvedMode => changed items -->
             <p
-              v-if="previewMode"
+              v-if="approvedMode || previewMode"
               class="flex w-full items-center pl-3 text-lg italic tracking-wider font-medium"
             >
               {{ inventory[index].item }}
@@ -64,7 +65,7 @@
           <div class="flex justify-end space-x-4 pr-4">
             <button
               class="tracking-wider text-lg btn px-0 py-0 w-8 h-auto"
-              v-if="!previewMode"
+              v-if="!approvedMode && !previewMode"
               @click="handleMinus(index)"
             >
               -
@@ -74,7 +75,7 @@
             </p>
             <button
               class="tracking-wider text-lg btn px-0 py-0 w-8 h-auto"
-              v-if="!previewMode"
+              v-if="!approvedMode && !previewMode"
               @click="handlePlus(index)"
             >
               +
@@ -84,7 +85,10 @@
       </table>
 
       <!-- 4. Options to add row, confirm, or delete list -->
-      <section v-if="!previewMode" class="flex justify-between mt-6">
+      <section
+        v-if="!approvedMode && !previewMode"
+        class="flex justify-between mt-6"
+      >
         <!-- Toggle previewMode off -->
         <button
           class="tracking-wider text-md btn w-2/12 h-1/5 rounded-lg"
@@ -110,7 +114,7 @@
       </section>
 
       <section
-        v-if="previewMode"
+        v-if="!approvedMode && previewMode"
         class="flex justify-end space-x-4 w-full mt-6"
       >
         <!-- Toggle previewMode on -->
@@ -148,16 +152,27 @@ const apartments = await getApartments();
 const { address, floor, doorNumber, imageUrl, area, status } =
   apartments[id - 1];
 
+// boolean to toggle render mode
 const previewMode = ref(false);
+const approvedMode = ref(false);
+
 // get inventory list for particular apartment[id] onMount => to be changed in this page
+const inventoryInitial = ref([]);
 const inventory = ref([]);
 onMounted(async () => {
+  // empty array if initial inventory doesn't exist => else inventory.value = undefined
   inventory.value = (await getInventory(parseInt(id))) || [];
+  // initial array to compare with for changes
+  inventoryInitial.value = (await getInventory(parseInt(id))) || [];
 });
 
 const itemOptions = await getInventoryOptions();
 
 // event handlers ----------------------------------------------------------------------------------
+const handleDropdownChange = (selectedOption, index) => {
+  inventory.value[index].item = selectedOption;
+};
+
 const handleMinus = (index) => {
   if (inventory.value[index].quantity > 1) {
     inventory.value[index].quantity--;
@@ -181,12 +196,16 @@ const handleAddRow = () => {
 const handlePreview = () => {
   // toggles previewMode to disable select/dropdown & +/- qty
   console.log(previewMode.value);
+  console.log(inventory.value);
   previewMode.value = !previewMode.value;
 };
 
-const handleApprove = () => {};
-
 const handleDelete = () => {};
+
+const handleApprove = () => {
+  updateInventory(id, inventory.value);
+  approvedMode.value = !approvedMode.value;
+};
 </script>
 
 <style scoped></style>
