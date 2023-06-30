@@ -110,7 +110,50 @@ const mockApartments = [
   },
 ];
 
-const mockInventory = [];
+const inventoryOptions = [
+  "Refrigerator",
+  "Air-Conditioner",
+  "Air-Conditioner Remote Controller",
+  "Ceiling Fan",
+  "Sofa",
+  "Coffee Table",
+  "Television Console",
+  "Television Remote Controller",
+  "Water Heater",
+  "Toilet Bowl",
+  "Shower Set",
+  "Bathroom Basin",
+  "Dining Table",
+  "Dining Chair",
+  "Induction Stove",
+  "Kitchen Hood",
+  "Kitchen Sink",
+  "Dishwasher",
+  "Bed Frame (Single)",
+  "Bed Frame (Queen)",
+  "Bed Frame (King)",
+  "Mattress (Single)",
+  "Mattress (Queen)",
+  "Mattress (King)",
+  "Fitted Wardrobe",
+  "Washing Machine",
+  "Ironing Board",
+  "Drying Rack",
+];
+
+const mockInventory = [
+  {
+    apartmentId: 3,
+    items: [
+      { item: "Refrigerator", quantity: 1 },
+      { item: "Air-Conditioner", quantity: 2 },
+      { item: "Sofa", quantity: 1 },
+      { item: "Washing Machine", quantity: 1 },
+      { item: "Bed Frame (Single)", quantity: 2 },
+      { item: "Mattress (Single)", quantity: 2 },
+    ],
+  },
+];
 
 // Simulate API response delay -------------------------------------------------------
 function delay(ms) {
@@ -125,7 +168,16 @@ async function getApartments() {
 
 async function getInventory(apartmentId) {
   await delay(500); // Simulate API delay
-  return mockInventory;
+
+  console.log(mockInventory);
+  for (let i = 0; i < mockInventory.length; i++) {
+    if (mockInventory[i].apartmentId === apartmentId) {
+      console.log("INVENTORY EXISTS");
+      return mockInventory[i].items;
+    } else {
+      return undefined;
+    }
+  }
 }
 
 async function createInventory(apartmentId) {

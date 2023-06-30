@@ -3,4 +3,9 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark"],
   },
+  variants: {
+    extend: {
+      backgroundColor: ["even"],
+    },
+  },
 };

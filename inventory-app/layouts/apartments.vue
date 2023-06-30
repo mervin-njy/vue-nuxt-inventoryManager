@@ -1,3 +1,4 @@
+<!-- TO BE REMOVED -->
 <!-- default layout with nav links for individual apartments -->
 <template>
   <div class="mx-auto w-11/12 h-screen">

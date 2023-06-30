@@ -1,6 +1,6 @@
+<!-- TO BE REMOVED - Only notes here -->
 <!-- NOTE: vue's default base route / home page -->
 <!-- Added redirect (@nuxt.config.ts) from "/" to "/apartments" for this project -->
-<!-- Only notes here -->
 
 <template>
   <div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card card-compact w-96 bg-base-100 shadow-xl">
+    <div class="card card-compact w-96 bg-base-100 shadow-xl hover:shadow-2xl">
       <img :src="apartment.imageUrl" :width="400" :alt="apartment.address" />
 
       <div class="card-body">
